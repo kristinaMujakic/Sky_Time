@@ -1,4 +1,4 @@
-# Capstone Project Proposal - Rise Set Go
+# Capstone Project Proposal - Sky Time
 
 ## Goal of the Website
 The main goal of this application is to provide users with information about the Sun and Moon at the requested time, including sunrise, sunset, day length, moonrise, and moonset.
@@ -12,7 +12,7 @@ The Astronomy API from https://ipgeolocation.io/documentation/astronomy-api.html
 ## Approach to Creating the Project
 ### Database Schema
 A database schema to store user information, location information, and other necessary data.
-https://dbdiagram.io/d/64406f456b31947051e21a13
+https://dbdiagram.io/d/644b8383dca9fb07c431cd24
 
 ### Possible Issues
 The API data may not always be accurate due to atmospheric conditions, precision of location data, or different time zones. Additionally, if the API's external data sources have issues, it will affect the API itself.
