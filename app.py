@@ -55,7 +55,7 @@ def signup():
     if form.validate_on_submit():
         try:
             user = User.signup(username=form.username.data,
-                               email=form.email.data, password=form.password.data)
+                               email=form.email.data, image_url=form.image_url.data or User.image_url.default.arg, password=form.password.data)
 
             db.session.commit()
 
