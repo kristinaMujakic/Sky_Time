@@ -33,14 +33,25 @@ def user_global():
 def user_login(user):
     '''Login the User'''
 
-    session[CURR_USER_KEY] = user.id
+    session[CURR_USER_KEY] = user.username
 
 
-def user_logout(user):
+def user_logout():
     '''Logout the User'''
 
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
+
+
+@app.route('/')
+def homepage():
+    '''Render homepage'''
+
+    if g.user:
+        return render_template('user.html')
+
+    else:
+        return render_template('homepage.html')
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -99,17 +110,6 @@ def logout():
     user_logout()
 
     flash(
-        f"Goodbye, Sky Explorer {user.username}! Safe travels through the celestial expanse until we meet again!", 'success')
+        f"Goodbye, Sky Explorer! Safe travels through the celestial expanse until we meet again!", 'success')
 
     return redirect('/login')
-
-
-@app.route('/')
-def homepage():
-    '''Render homepage'''
-
-    if g.user:
-        return render_template('user.html')
-
-    else:
-        return render_template('homepage.html')

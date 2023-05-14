@@ -13,18 +13,23 @@
     <body>
         <h1>Sky Time</h1>
 
-        {% if not g.user %}
-        <li><a href="/signup">Sign up</a></li>
-        <li><a href="/login">Log in</a></li>
-        {% else %}
-        <!-- <li>
-            <a href="/users/{{ g.user.id }}">
-                <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}">
-            </a>
-        </li> -->
+        <ul>
+            {% if not g.user %}
 
-        <li><a href="/logout">Log out</a></li>
-        {% endif %}
+            <li><a href="/signup">Sign up</a></li>
+            <li><a href="/login">Log in</a></li>
+
+            {% else %}
+            <li>
+                <a href="/users/{{ g.user.id }}">
+                    <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}">
+                </a>
+            </li>
+
+            <li><a href="/logout">Log out</a></li>
+
+            {% endif %}
+        </ul>
 
         <div class="container">
             {% for category, message in get_flashed_messages(with_categories=True) %}
@@ -33,7 +38,6 @@
 
             {% block content %}
             {% endblock %}
-
         </div>
     </body>
 
