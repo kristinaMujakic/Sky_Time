@@ -1,6 +1,7 @@
 '''Flask app for Sky Time'''
-
+import os
 from flask import Flask, g, session, render_template, redirect, flash
+from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
 from forms import SignUpForm, LogInForm
@@ -10,9 +11,17 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///sky_time'
+# Get DB_URI from environ variable (useful for production/testing) or,
+# if not set there, use development local db.
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    os.environ.get('DATABASE_URL', 'postgresql:///sky_time'))
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = '333'
+app.config['SQLALCHEMY_ECHO'] = False
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
+
+toolbar = DebugToolbarExtension(app)
 
 with app.app_context():
     connect_db(app)
@@ -80,7 +89,7 @@ def signup():
         return redirect('/')
 
     else:
-        return render_template('signup.html')
+        return render_template('signup.html', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
