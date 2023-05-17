@@ -1,5 +1,3 @@
-// 
-
 async function processForm(evt) {
     evt.preventDefault();
 
@@ -25,6 +23,7 @@ async function processForm(evt) {
 
         const data = await response.json();
         handleResponse(data);
+
     } catch (error) {
         console.error(error);
     }

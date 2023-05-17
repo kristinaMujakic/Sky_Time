@@ -27,8 +27,13 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 
 toolbar = DebugToolbarExtension(app)
 
-# API_KEY = os.environ.get('API_KEY')
-ASTRONOMY_API_URL = f'https://api.ipgeolocation.io/astronomy?apiKey=154e1938e3304935b666063a1754e55b'
+# Read the API key from the file
+with open('api_key.txt', 'r') as file:
+    API_KEY = file.read().strip()
+
+# Set the API key as an environment variable
+os.environ['API_KEY'] = API_KEY
+ASTRONOMY_API_URL = f'https://api.ipgeolocation.io/astronomy?apiKey={API_KEY}'
 
 with app.app_context():
     connect_db(app)
