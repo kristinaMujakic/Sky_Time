@@ -3,6 +3,27 @@
 
 <h1>Welcome, {{ g.user.username }}</h1>
 
-<a href="/logout">Log Out</a>
+<form id="search-form">
+    <label for="city">City:</label>
+    <input type="text" id="city" required><br><br>
+    <label for="state">State:</label>
+    <input type="text" id="state" required><br><br>
+    <label for="country">Country:</label>
+    <input type="text" id="country" required><br><br>
+    <label for="date">Date:</label>
+    <input type="text" id="date" required><br><br>
+    <button type="submit">Get Sky Time</button>
+</form>
 
+<div id="location"></div>
+<div id="date"></div>
+<div id="sunrise"></div>
+<div id="sunset"></div>
+<div id="day-length"></div>
+<div id="moonrise"></div>
+<div id="moonset"></div>
+
+
+
+<a href="/logout">Log Out</a>
 {% endblock %}

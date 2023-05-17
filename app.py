@@ -1,11 +1,15 @@
 '''Flask app for Sky Time'''
+
 import os
-from flask import Flask, g, session, render_template, redirect, flash
+
+from flask import Flask, g, session, render_template, redirect, flash, jsonify, request
+import requests
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
+
 from forms import SignUpForm, LogInForm
-from models import db, connect_db, User
+from models import db, connect_db, User, Location, UserFavourite
 
 CURR_USER_KEY = "curr_user"
 
@@ -22,6 +26,9 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 
 toolbar = DebugToolbarExtension(app)
+
+# API_KEY = os.environ.get('API_KEY')
+ASTRONOMY_API_URL = f'https://api.ipgeolocation.io/astronomy?apiKey=154e1938e3304935b666063a1754e55b'
 
 with app.app_context():
     connect_db(app)
@@ -122,3 +129,55 @@ def logout():
         f"Goodbye, Sky Explorer! Safe travels through the celestial expanse until we meet again!", 'success')
 
     return redirect('/login')
+
+
+@app.route('/search', methods=['POST'])
+def user_page():
+    '''Handle search form submission'''
+
+    if not g.user:
+        flash('Access unauthorized', 'danger')
+        return redirect('/')
+
+    data = request.get_json()
+
+    try:
+        response = requests.get(ASTRONOMY_API_URL, params=data)
+        astronomical_data = response.json()
+
+        location = astronomical_data['location']
+        date = astronomical_data['date']
+        sunrise = astronomical_data['sunrise']
+        sunset = astronomical_data['sunset']
+        day_length = astronomical_data['day_length']
+        moonrise = astronomical_data['moonrise']
+        moonset = astronomical_data['moonset']
+
+        search_data = Location(
+            city=location['city'],
+            state=location['state'],
+            country=location['country'],
+            date=date,
+            latitude=location['latitude'],
+            longitude=location['longitude']
+        )
+
+        db.session.add(search_data)
+        db.session.commit()
+
+        response = {
+            "location": location,
+            "date": date,
+            "sunrise": sunrise,
+            "sunset": sunset,
+            "day_length": day_length,
+            "moonrise": moonrise,
+            "moonset": moonset
+        }
+
+        return jsonify(response)
+
+    except Exception as e:
+        print(f"Error retrieving location data: {str(e)}")
+        flash('An error occurred while retrieving location data. Please try again later.', 'danger')
+        return redirect('/')

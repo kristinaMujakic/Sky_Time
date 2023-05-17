@@ -7,18 +7,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sky Time</title>
 
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <!-- <link rel="stylesheet" href="/static/style.css"> -->
     </head>
 
     <body>
-        <!-- <div class="container">
-            {% for category, message in get_flashed_messages(with_categories=True) %}
-            <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %} -->
-
         {% block content %}
         {% endblock %}
+
+        <div class="container">
+            {% for category, message in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
         </div>
+
+        <script src="{{ url_for('static', filename='main.js') }}"></script>
     </body>
 
 </html>

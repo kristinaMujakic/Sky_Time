@@ -63,7 +63,7 @@ class Location(db.Model):
     username = db.Column(db.String(50), db.ForeignKey('users.username'))
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
-    city_name = db.Column(db.String(100))
+    city = db.Column(db.String(100))
     state = db.Column(db.String(100))
     country = db.Column(db.String(100))
 
