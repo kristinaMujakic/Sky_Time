@@ -5,25 +5,38 @@
 
 <form id="search-form">
     <label for="city">City:</label>
-    <input type="text" id="city" required><br><br>
-    <label for="state">State:</label>
-    <input type="text" id="state" required><br><br>
+    <input type="text" id="city" required>
     <label for="country">Country:</label>
-    <input type="text" id="country" required><br><br>
+    <input type="text" id="country">
     <label for="date">Date:</label>
-    <input type="text" id="date" required><br><br>
+    <input type="text" id="date" value="">
+    <label for="select-all">Select options:</label>
+    <div class="options">
+        <label for="select-all">Select All:</label>
+        <input type="checkbox" id="select-all"><br>
+        <label for="sunrise">Sunrise:</label>
+        <input type="checkbox" id="sunrise" value="sunrise"><br>
+        <label for="sunset">Sunset:</label>
+        <input type="checkbox" id="sunset" value="sunset"><br>
+        <label for="day-length">Day Length:</label>
+        <input type="checkbox" id="day-length" value="day_length"><br>
+        <label for="moonrise">Moonrise:</label>
+        <input type="checkbox" id="moonrise" value="moonrise"><br>
+        <label for="moonset">Moonset:</label>
+        <input type="checkbox" id="moonset" value="moonset"><br>
+    </div>
+    <!-- 
+    <label for="save-search">Save to Favorites:</label>
+    <input type="checkbox" id="save-search"> -->
+
     <button type="submit">Get Sky Time</button>
 </form>
 
-<div id="location"></div>
-<div id="date"></div>
-<div id="sunrise"></div>
-<div id="sunset"></div>
-<div id="day-length"></div>
-<div id="moonrise"></div>
-<div id="moonset"></div>
-
-
+<div id="sunrise-info"></div>
+<div id="sunset-info"></div>
+<div id="day-length-info"></div>
+<div id="moonrise-info"></div>
+<div id="moonset-info"></div>
 
 <a href="/logout">Log Out</a>
 {% endblock %}

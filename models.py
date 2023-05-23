@@ -27,6 +27,9 @@ class User(db.Model):
     locations = db.relationship(
         'Location', back_populates='user', cascade='all, delete')
 
+    favourites = db.relationship(
+        'UserFavourite', back_populates='user', cascade='all, delete')
+
     @classmethod
     def signup(cls, username, email, password, image_url):
         '''Sign up User: hashes password and adds user to the system'''
@@ -60,15 +63,15 @@ class Location(db.Model):
     __tablename__ = 'locations'
 
     location_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), db.ForeignKey('users.username'))
+    user_id = db.Column(db.String(50), db.ForeignKey('users.username'))
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
     city = db.Column(db.String(100))
     state = db.Column(db.String(100))
     country = db.Column(db.String(100))
+    date = db.Column(db.Date)
 
     user = db.relationship('User', back_populates='locations')
-
     favourites = db.relationship(
         'UserFavourite', back_populates='location', cascade='all, delete')
 
@@ -79,6 +82,7 @@ class UserFavourite(db.Model):
     __tablename__ = 'users_favourites'
 
     favourite_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(50), db.ForeignKey('users.username'))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.location_id'))
     date = db.Column(db.Date)
     sunrise_time = db.Column(db.Time)
@@ -87,4 +91,5 @@ class UserFavourite(db.Model):
     moonset_time = db.Column(db.Time)
     day_length = db.Column(db.Time)
 
+    user = db.relationship('User', back_populates='favourites')
     location = db.relationship('Location', back_populates='favourites')
