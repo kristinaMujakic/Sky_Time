@@ -64,34 +64,34 @@ function handleResponse(resp) {
     const moonset = resp.moonset;
 
     if ($('#sunrise').is(':checked') || $('#select-all').is(':checked')) {
-        $('#sunrise-info').text(`Sunrise: ${sunrise}`);
+        $('#sunrise-info').text(`Sunrise: ${sunrise === '-:-' ? 'Unavailable' : sunrise}`);
     } else {
         $('#sunrise-info').empty();
     }
 
     if ($('#sunset').is(':checked') || $('#select-all').is(':checked')) {
-        $('#sunset-info').text(`Sunset: ${sunset}`);
+        $('#sunset-info').text(`Sunset: ${sunset === '-:-' ? 'Unavailable' : sunset}`);
     } else {
         $('#sunset-info').empty();
     }
 
     if ($('#day-length').is(':checked') || $('#select-all').is(':checked')) {
-        $('#day-length-info').text(`Day Length: ${dayLength}`);
+        $('#day-length-info').text(`Day Length: ${dayLength === '-:-' ? 'Unavailable' : dayLength}`);
     } else {
         $('#day-length-info').empty();
     }
 
     if ($('#moonrise').is(':checked') || $('#select-all').is(':checked')) {
-        $('#moonrise-info').text(`Moonrise: ${moonrise}`);
+        $('#moonrise-info').text(`Moonrise: ${moonrise === '-:-' ? 'Unavailable' : moonrise}`);
     } else {
         $('#moonrise-info').empty();
     }
 
     if ($('#moonset').is(':checked') || $('#select-all').is(':checked')) {
-        $('#moonset-info').text(`Moonset: ${moonset}`);
+        $('#moonset-info').text(`Moonset: ${moonset === '-:-' ? 'Unavailable' : moonset} `);
     } else {
         $('#moonset-info').empty();
     }
 }
 
-$("#search-form").on("submit", processForm);
+$("#search-form").on("submit", processForm);;

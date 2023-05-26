@@ -148,6 +148,8 @@ def user_page():
         response = requests.get(ASTRONOMY_API_URL, params={
                                 'apiKey': API_KEY, 'location': f'{city}, {country}'})
 
+        print(response.content)
+
         astronomical_data = response.json()
 
         location = astronomical_data['location']
@@ -157,18 +159,6 @@ def user_page():
         day_length = astronomical_data['day_length']
         moonrise = astronomical_data['moonrise']
         moonset = astronomical_data['moonset']
-
-        # Replace '-:-' with 'Unavailable'
-        if sunrise == '-:-':
-            sunrise = None
-        if sunset == '-:-':
-            sunset = None
-        if day_length == '-:-':
-            day_length = None
-        if moonrise == '-:-':
-            moonrise = None
-        if moonset == '-:-':
-            moonset = None
 
         search_data = Location(
             city=location['city'],
