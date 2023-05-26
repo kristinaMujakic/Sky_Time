@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Welcome, {{ g.user.username }}</h1>
+<h1>Welcome {{ g.user.username }}, the sky explorer! </h1>
+
+<h2>Enjoy the cosmic ride</h2>
 
 <form id="search-form">
     <label for="city">City:</label>
@@ -13,17 +15,16 @@
     <label for="select-all">Select options:</label>
     <div class="options">
         <label for="select-all">Select All:</label>
-        <input type="checkbox" id="select-all"><br>
-        <label for="sunrise">Sunrise:</label>
-        <input type="checkbox" id="sunrise" value="sunrise"><br>
+        <input type="checkbox" id="select-all">
+        <input type="checkbox" id="sunrise" value="sunrise">
         <label for="sunset">Sunset:</label>
-        <input type="checkbox" id="sunset" value="sunset"><br>
+        <input type="checkbox" id="sunset" value="sunset">
         <label for="day-length">Day Length:</label>
-        <input type="checkbox" id="day-length" value="day_length"><br>
+        <input type="checkbox" id="day-length" value="day_length">
         <label for="moonrise">Moonrise:</label>
-        <input type="checkbox" id="moonrise" value="moonrise"><br>
+        <input type="checkbox" id="moonrise" value="moonrise">
         <label for="moonset">Moonset:</label>
-        <input type="checkbox" id="moonset" value="moonset"><br>
+        <input type="checkbox" id="moonset" value="moonset">
     </div>
     <!-- 
     <label for="save-search">Save to Favorites:</label>

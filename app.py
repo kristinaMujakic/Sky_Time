@@ -110,8 +110,6 @@ def login():
 
         if user:
             user_login(user)
-            flash(
-                f"Welcome, {user.username} the sky explorer! Enjoy the cosmic ride!", 'success')
             return redirect('/')
 
         flash('Your credentials seem to be playing hide-and-seek with authenticity. No luck this time, my friend! Let\'s give it another shot, shall we?', 'danger')
@@ -125,10 +123,7 @@ def logout():
 
     user_logout()
 
-    flash(
-        f"Goodbye, Sky Explorer! Safe travels through the celestial expanse until we meet again!", 'success')
-
-    return redirect('/')
+    return render_template('logout.html')
 
 
 @app.route('/search', methods=['POST'])
@@ -147,8 +142,6 @@ def user_page():
 
         response = requests.get(ASTRONOMY_API_URL, params={
                                 'apiKey': API_KEY, 'location': f'{city}, {country}'})
-
-        print(response.content)
 
         astronomical_data = response.json()
 
