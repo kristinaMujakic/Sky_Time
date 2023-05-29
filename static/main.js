@@ -94,4 +94,4 @@ function handleResponse(resp) {
     }
 }
 
-$("#search-form").on("submit", processForm);;
+$("#search-form").on("submit", processForm);

@@ -13,7 +13,6 @@
 
     <body>
         {% block content %}
-        {% endblock %}
 
         <div class="container">
             {% for category, message in get_flashed_messages(with_categories=True) %}
@@ -21,6 +20,7 @@
             {% endfor %}
         </div>
 
+        {% endblock %}
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="{{ url_for('static', filename='main.js') }}"></script>
     </body>

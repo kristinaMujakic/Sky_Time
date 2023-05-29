@@ -13,7 +13,7 @@ class SignUpForm(FlaskForm):
     email = StringField(
         'E-mail', validators=[DataRequired(), Email()], render_kw={'placeholder': 'Email'})
     password = PasswordField('Password', validators=[
-                             Length(min=6)], render_kw={'placeholder': 'Password'})
+                             Length(min=8)], render_kw={'placeholder': 'Password'})
     image_url = StringField('(Optional) Image URL',
                             render_kw={'placeholder': 'URL image'})
 
