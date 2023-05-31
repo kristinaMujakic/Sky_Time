@@ -1,26 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Welcome to Sky Time</h1>
 
-<div>
-    <ul>
-        {% if not g.user %}
+<header>
+    <h1>Welcome to Sky Time</h1>
+</header>
 
-        <li><a href="/signup">Sign up</a></li>
-        <li><a href="/login">Log in</a></li>
+<main class="container">
 
-        {% else %}
-        <li>
-            <a href="/users/{{ g.user.id }}">
-                <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}">
-            </a>
-        </li>
+    {% if not g.user %}
 
-        <li><a href="/logout">Log out</a></li>
+    <p><a class="homepagebtn" href="/signup">Sign up</a></p>
+    <p><a class="homepagebtn" href="/login">Log in</a></p>
 
-        {% endif %}
-    </ul>
-</div>
+    {% endif %}
+
+</main>
 
 {% endblock %}

@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Log in</h2>
+<div class="container login">
 
-<form method="POST">
-    {% include "_form.html" %}
+    <form method="POST">
+        {% include "_form.html" %}
 
-    <button class="btn btn-primary" type="submit">Log In</button>
+        <button type="submit">Enjoy the cosmic ride</button>
+    </form>
 
-</form>
+</div>
+<div class="flash-messages">
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+</div>
+
+
+
+<p class="returnbtn"><a href="/">Back</a></p>
 
 {% endblock %}

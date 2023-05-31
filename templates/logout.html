@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div>
-    <h1>Goodbye, {{ g.user.username }} Sky Explorer!</h1>
+<header>
+    <p>{{ g.user.username }}</p>
+    <p>Safe travels through the celestial expanse until we meet again!</p>
+</header>
 
-    <h2>Safe travels through the celestial expanse until we meet again!</h2>
-
-    <a href="/">Back</a>
-
-</div>
+<p class="returnbtn"><a href="/">Back</a></p>
 
 {% endblock %}

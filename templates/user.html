@@ -1,43 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Welcome {{ g.user.username }}, the sky explorer! </h1>
+<header>
+    <h2>Welcome {{ g.user.username }}, the sky explorer!</h2>
+</header>
 
-<h2>Enjoy the cosmic ride</h2>
+<div class="container searchform">
 
-<form id="search-form">
-    <label for="city">City:</label>
-    <input type="text" id="city" required>
-    <label for="country">Country:</label>
-    <input type="text" id="country">
-    <label for="date">Date:</label>
-    <input type="text" id="date" value="">
-    <label for="select-all">Select options:</label>
-    <div class="options">
-        <label for="select-all">Select All:</label>
-        <input type="checkbox" id="select-all">
-        <input type="checkbox" id="sunrise" value="sunrise">
-        <label for="sunset">Sunset:</label>
-        <input type="checkbox" id="sunset" value="sunset">
-        <label for="day-length">Day Length:</label>
-        <input type="checkbox" id="day-length" value="day_length">
-        <label for="moonrise">Moonrise:</label>
-        <input type="checkbox" id="moonrise" value="moonrise">
-        <label for="moonset">Moonset:</label>
-        <input type="checkbox" id="moonset" value="moonset">
+    <div>
+        <form id="search-form">
+            <label for="city">City:</label>
+            <input type="text" id="city" required>
+            <label for="country">Country:</label>
+            <input type="text" id="country">
+            <label for="date">Date:</label>
+            <input type="text" id="date" value="{{ defaultDate }}">
+            <div class="options">
+                <label for="select-all">Select All:</label>
+                <input type="checkbox" id="select-all">
+                <label for="sunrise">Sunrise:</label>
+                <input type="checkbox" id="sunrise" value="sunrise">
+                <label for="sunset">Sunset:</label>
+                <input type="checkbox" id="sunset" value="sunset">
+                <label for="day-length">Day Length:</label>
+                <input type="checkbox" id="day-length" value="day_length">
+                <label for="moonrise">Moonrise:</label>
+                <input type="checkbox" id="moonrise" value="moonrise">
+                <label for="moonset">Moonset:</label>
+                <input type="checkbox" id="moonset" value="moonset">
+            </div>
+            <button type="submit">Get Sky Time</button>
+        </form>
     </div>
-    <!-- 
-    <label for="save-search">Save to Favorites:</label>
-    <input type="checkbox" id="save-search"> -->
 
-    <button type="submit">Get Sky Time</button>
-</form>
+    <div class="info-container">
+        <p id="sunset-info"></p>
+        <p id="day-length-info"></p>
+        <p id="moonrise-info"></p>
+        <p id="moonset-info"></p>
+    </div>
 
-<div id="sunrise-info"></div>
-<div id="sunset-info"></div>
-<div id="day-length-info"></div>
-<div id="moonrise-info"></div>
-<div id="moonset-info"></div>
+</div>
 
-<a href="/logout">Log Out</a>
+<p class="returnbtn"><a href="/logout">Log Out</a></p>
+
 {% endblock %}

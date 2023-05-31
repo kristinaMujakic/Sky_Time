@@ -7,20 +7,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sky Time</title>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Open+Sans:wght@300;400&family=Roboto:wght@300;400&display=swap"
+            rel="stylesheet">
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- <link rel="stylesheet" href="/static/style.css"> -->
+        <link rel="stylesheet" href="/static/stylesheets/style.css">
     </head>
 
     <body>
         {% block content %}
-
-        <div class="container">
-            {% for category, message in get_flashed_messages(with_categories=True) %}
-            <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-
         {% endblock %}
+
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="{{ url_for('static', filename='main.js') }}"></script>
     </body>

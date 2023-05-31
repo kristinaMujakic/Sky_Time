@@ -87,7 +87,7 @@ def signup():
             db.session.commit()
 
         except IntegrityError:
-            flash('The username you fancy has already been occupied by another lucky soul! Please specify an alternate. \:) ', 'danger')
+            flash('The username you fancy has already been occupied by another lucky soul! Please specify an alternate. :) ', 'error')
 
             return render_template('signup.html', form=form)
 
@@ -112,7 +112,7 @@ def login():
             user_login(user)
             return redirect('/')
 
-        flash('Your credentials seem to be playing hide-and-seek with authenticity. No luck this time, my friend! Let\'s give it another shot, shall we?', 'danger')
+        flash('Your credentials seem to be playing hide-and-seek with authenticity. No luck this time, my friend! Let\'s give it another shot, shall we?', 'error')
 
     return render_template('login.html', form=form)
 
@@ -131,7 +131,7 @@ def user_page():
     '''Handle search form submission'''
 
     if not g.user:
-        flash('Access unauthorized', 'danger')
+        flash('Access unauthorized', 'error')
         return redirect('/')
 
     data = request.get_json()
@@ -191,5 +191,5 @@ def user_page():
 
     except Exception as e:
         print(f"Error retrieving location data: {str(e)}")
-        flash('An error occurred while retrieving location data. Please try again later.', 'danger')
+        flash('An error occurred while retrieving location data. Please try again later.', 'error')
         return redirect('/')
