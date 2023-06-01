@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<header>
+<div class="container">
+
     <h2>Welcome {{ g.user.username }}, the sky explorer!</h2>
-</header>
 
-<div class="container searchform">
-
-    <div>
-        <form id="search-form">
-            <label for="city">City:</label>
-            <input type="text" id="city" required>
-            <label for="country">Country:</label>
-            <input type="text" id="country">
-            <label for="date">Date:</label>
-            <input type="text" id="date" value="{{ defaultDate }}">
-            <div class="options">
+    <div class="usergrid">
+        <form id="search-form" class="formstyle formgrid">
+            <div class="col1 edit">
+                <label for="city">City:</label>
+                <input type="text" id="city" required>
+                <label for="country">Country:</label>
+                <input type="text" id="country">
+                <label for="date">Date:</label>
+                <input type="text" id="date" value="{{ defaultDate }}">
+            </div>
+            <div class="col2 edit">
                 <label for="select-all">Select All:</label>
                 <input type="checkbox" id="select-all">
                 <label for="sunrise">Sunrise:</label>
@@ -29,19 +29,17 @@
                 <label for="moonset">Moonset:</label>
                 <input type="checkbox" id="moonset" value="moonset">
             </div>
-            <button type="submit">Get Sky Time</button>
+            <div class="row2"><button type="submit">Get Sky Time</button></div>
         </form>
+
+        <div class="formstyle edit">
+            <p id="sunset-info"></p>
+            <p id="day-length-info"></p>
+            <p id="moonrise-info"></p>
+            <p id="moonset-info"></p>
+        </div>
     </div>
 
-    <div class="info-container">
-        <p id="sunset-info"></p>
-        <p id="day-length-info"></p>
-        <p id="moonrise-info"></p>
-        <p id="moonset-info"></p>
-    </div>
+    <p class="returnbtn"><a href="/logout">Log Out</a></p>
 
-</div>
-
-<p class="returnbtn"><a href="/logout">Log Out</a></p>
-
-{% endblock %}
+    {% endblock %}
