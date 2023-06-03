@@ -177,6 +177,9 @@ def user_page():
             db.session.add(user_favourite)
             db.session.commit()
 
+            # favorites = UserFavourite.query.filter_by(
+            #     user_id=g.user.username).all()
+
         response = {
             "location": location,
             "date": date,
@@ -184,7 +187,8 @@ def user_page():
             "sunset": sunset,
             "day_length": day_length,
             "moonrise": moonrise,
-            "moonset": moonset
+            "moonset": moonset,
+            # "favorites": favorites
         }
 
         return jsonify(response)

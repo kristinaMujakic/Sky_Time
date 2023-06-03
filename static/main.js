@@ -9,7 +9,7 @@ $(function () {
         const isChecked = $(this).prop('checked');
 
         // toggle based on the "Select All" checkbox
-        $('.options input[type="checkbox"]').not(this).prop({
+        $('.toggle input[type="checkbox"]').not(this).prop({
             disabled: isChecked,
             checked: isChecked ? true : false
         });
@@ -57,41 +57,26 @@ async function processForm(evt) {
 }
 
 function handleResponse(resp) {
-    const sunrise = resp.sunrise;
-    const sunset = resp.sunset;
-    const dayLength = resp.day_length;
-    const moonrise = resp.moonrise;
-    const moonset = resp.moonset;
+    const fields = [
+        { id: 'sunrise', infoId: 'sunrise-info', label: 'Sunrise' },
+        { id: 'sunset', infoId: 'sunset-info', label: 'Sunset' },
+        { id: 'day_length', infoId: 'day-length-info', label: 'Day Length' },
+        { id: 'moonrise', infoId: 'moonrise-info', label: 'Moonrise' },
+        { id: 'moonset', infoId: 'moonset-info', label: 'Moonset' },
+    ];
 
-    if ($('#sunrise').is(':checked') || $('#select-all').is(':checked')) {
-        $('#sunrise-info').text(`Sunrise: ${sunrise === '-:-' ? 'Unavailable' : sunrise}`);
-    } else {
-        $('#sunrise-info').empty();
-    }
+    for (const field of fields) {
+        const value = resp[field.id];
+        const isChecked = $(`#${field.id}`).is(':checked') || $('#select-all').is(':checked');
+        const displayValue = value === '-:-' ? 'Unavailable' : value;
 
-    if ($('#sunset').is(':checked') || $('#select-all').is(':checked')) {
-        $('#sunset-info').text(`Sunset: ${sunset === '-:-' ? 'Unavailable' : sunset}`);
-    } else {
-        $('#sunset-info').empty();
-    }
-
-    if ($('#day-length').is(':checked') || $('#select-all').is(':checked')) {
-        $('#day-length-info').text(`Day Length: ${dayLength === '-:-' ? 'Unavailable' : dayLength}`);
-    } else {
-        $('#day-length-info').empty();
-    }
-
-    if ($('#moonrise').is(':checked') || $('#select-all').is(':checked')) {
-        $('#moonrise-info').text(`Moonrise: ${moonrise === '-:-' ? 'Unavailable' : moonrise}`);
-    } else {
-        $('#moonrise-info').empty();
-    }
-
-    if ($('#moonset').is(':checked') || $('#select-all').is(':checked')) {
-        $('#moonset-info').text(`Moonset: ${moonset === '-:-' ? 'Unavailable' : moonset} `);
-    } else {
-        $('#moonset-info').empty();
+        if (isChecked) {
+            $(`#${field.infoId}`).text(`${field.label}: ${displayValue}`);
+        } else {
+            $(`#${field.infoId}`).empty();
+        }
     }
 }
+
 
 $("#search-form").on("submit", processForm);

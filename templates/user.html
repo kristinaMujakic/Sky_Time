@@ -15,7 +15,7 @@
                 <label for="date">Date:</label>
                 <input type="text" id="date" value="{{ defaultDate }}">
             </div>
-            <div class="col2 edit">
+            <div class="col2 edit toggle">
                 <label for="select-all">Select All:</label>
                 <input type="checkbox" id="select-all">
                 <label for="sunrise">Sunrise:</label>
@@ -33,6 +33,7 @@
         </form>
 
         <div class="formstyle edit">
+            <p id="sunrise-info"></p>
             <p id="sunset-info"></p>
             <p id="day-length-info"></p>
             <p id="moonrise-info"></p>
