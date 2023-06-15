@@ -15,7 +15,7 @@ ASTRONOMY_API_URL = 'https://api.ipgeolocation.io/astronomy'
 
 app = Flask(__name__)
 
-# Get DB_URI from environ variable (useful for production/testing) or if not set there, use development local db.
+
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///sky_time'))
 
@@ -177,9 +177,6 @@ def user_page():
             db.session.add(user_favourite)
             db.session.commit()
 
-            # favorites = UserFavourite.query.filter_by(
-            #     user_id=g.user.username).all()
-
         response = {
             "location": location,
             "date": date,
@@ -188,7 +185,7 @@ def user_page():
             "day_length": day_length,
             "moonrise": moonrise,
             "moonset": moonset,
-            # "favorites": favorites
+
         }
 
         return jsonify(response)
