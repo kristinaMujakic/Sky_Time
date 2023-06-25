@@ -53,6 +53,7 @@ async function processForm(evt) {
         }
     } catch (error) {
         console.error(error);
+        console.log(error);
     }
 }
 

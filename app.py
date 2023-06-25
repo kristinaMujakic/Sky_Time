@@ -82,7 +82,7 @@ def signup():
     if form.validate_on_submit():
         try:
             user = User.signup(username=form.username.data,
-                               email=form.email.data, image_url=form.image_url.data or User.image_url.default.arg, password=form.password.data)
+                               email=form.email.data, password=form.password.data)
 
             db.session.commit()
 
@@ -95,8 +95,7 @@ def signup():
 
         return redirect('/')
 
-    else:
-        return render_template('signup.html', form=form)
+    return render_template('signup.html', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -142,7 +141,6 @@ def user_page():
 
         response = requests.get(ASTRONOMY_API_URL, params={
                                 'apiKey': API_KEY, 'location': f'{city}, {country}'})
-
         astronomical_data = response.json()
 
         location = astronomical_data['location']
@@ -153,42 +151,25 @@ def user_page():
         moonrise = astronomical_data['moonrise']
         moonset = astronomical_data['moonset']
 
-        search_data = Location(
-            city=location['city'],
-            country=location['country'],
-            date=date,
-            latitude=location['latitude'],
-            longitude=location['longitude']
-        )
+        search_data = {
+            "city": location['city'],
+            "country": location['country'],
+            "date": date,
+            "latitude": location['latitude'],
+            "longitude": location['longitude']
+        }
 
-        if g.user:
-            user_favourite = UserFavourite(
-                user_id=g.user.username,
-                location=search_data,
-                date=date,
-                sunrise_time=sunrise,
-                sunset_time=sunset,
-                moonrise_time=moonrise,
-                moonset_time=moonset,
-                day_length=day_length
-            )
-
-            g.user.favourites.append(user_favourite)
-            db.session.add(user_favourite)
-            db.session.commit()
-
-        response = {
+        resp = {
             "location": location,
             "date": date,
             "sunrise": sunrise,
             "sunset": sunset,
             "day_length": day_length,
             "moonrise": moonrise,
-            "moonset": moonset,
-
+            "moonset": moonset
         }
 
-        return jsonify(response)
+        return jsonify(resp)
 
     except Exception as e:
         print(f"Error retrieving location data: {str(e)}")

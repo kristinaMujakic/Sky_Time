@@ -13,7 +13,6 @@ CREATE DATABASE sky_time;
 CREATE TABLE users (
     username VARCHAR(50) PRIMARY KEY,
     email VARCHAR(100) NOT NULL UNIQUE,
-    image_url TEXT DEFAULT '/static/images/default_img.png',
     password TEXT NOT NULL
 );
 

@@ -21,7 +21,6 @@ class User(db.Model):
 
     username = db.Column(db.String(50), primary_key=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
-    image_url = db.Column(db.Text, default='/static/images/default_img.png')
     password = db.Column(db.Text, nullable=False)
 
     locations = db.relationship(
@@ -31,13 +30,13 @@ class User(db.Model):
         'UserFavourite', back_populates='user', cascade='all, delete')
 
     @classmethod
-    def signup(cls, username, email, password, image_url):
+    def signup(cls, username, email, password):
         '''Sign up User: hashes password and adds user to the system'''
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
         user = User(username=username, email=email,
-                    password=hashed_pwd, image_url=image_url)
+                    password=hashed_pwd)
 
         db.session.add(user)
         return user
