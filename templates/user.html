@@ -2,32 +2,33 @@
 {% block content %}
 
 <div class="container">
-
     <h2>Welcome {{ g.user.username }}, the sky explorer!</h2>
+    <p>{{form_input}}</p>
 
     <div class="usergrid">
         <form id="search-form" class="formstyle formgrid">
             <div class="col1 edit">
                 <label for="city">City:</label>
-                <input type="text" id="city" required>
+                <input type="text" id="city" value="{{ form_input.city }}" required>
                 <label for="country">Country:</label>
-                <input type="text" id="country">
+                <input type="text" id="country" value="{{ form_input.country }}">
                 <label for="date">Date:</label>
-                <input type="text" id="date" value="{{ defaultDate }}">
+                <input type="text" id="date">
             </div>
+
             <div class="col2 edit toggle">
                 <label for="select-all">Select All:</label>
                 <input type="checkbox" id="select-all">
                 <label for="sunrise">Sunrise:</label>
-                <input type="checkbox" id="sunrise" value="sunrise">
+                <input type="checkbox" id="sunrise" name="checkbox_option" value="sunrise">
                 <label for="sunset">Sunset:</label>
-                <input type="checkbox" id="sunset" value="sunset">
+                <input type="checkbox" id="sunset" name="checkbox_option" value="sunset">
                 <label for="day-length">Day Length:</label>
-                <input type="checkbox" id="day-length" value="day_length">
+                <input type="checkbox" id="day_length" name="checkbox_option" value="day_length">
                 <label for="moonrise">Moonrise:</label>
-                <input type="checkbox" id="moonrise" value="moonrise">
+                <input type="checkbox" id="moonrise" name="checkbox_option" value="moonrise">
                 <label for="moonset">Moonset:</label>
-                <input type="checkbox" id="moonset" value="moonset">
+                <input type="checkbox" id="moonset" name="checkbox_option" value="moonset">
             </div>
             <div class="row2"><button type="submit">Get Sky Time</button></div>
         </form>
@@ -42,5 +43,6 @@
     </div>
 
     <p class="returnbtn"><a href="/logout">Log Out</a></p>
+</div>
 
-    {% endblock %}
+{% endblock %}

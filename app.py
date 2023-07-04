@@ -1,27 +1,26 @@
-'''Flask app for Sky Time'''
-
 import os
+
 from flask import Flask, g, session, render_template, redirect, flash, jsonify, request
 import requests
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-
 from forms import SignUpForm, LogInForm
-from models import db, connect_db, User, Location, UserFavourite
+from models import db, connect_db, User
 
 CURR_USER_KEY = 'curr_user'
 ASTRONOMY_API_URL = 'https://api.ipgeolocation.io/astronomy'
 
 app = Flask(__name__)
 
-
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///sky_time'))
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
+
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 
 toolbar = DebugToolbarExtension(app)
@@ -42,14 +41,36 @@ def user_global():
     if CURR_USER_KEY in session:
         g.user = User.query.get(session[CURR_USER_KEY])
 
+    #   Retrieve form input from session and update g.user object
+        if 'form_input' in session:
+            g.user.form_input = session['form_input']
+
+            print('USER GLOBAL', g.user.form_input)
+
     else:
         g.user = None
 
 
 def user_login(user):
-    '''Login the User'''
+    '''Login the User and retrieve form input values'''
 
     session[CURR_USER_KEY] = user.username
+    # session['form_input'] = g.user.form_input
+
+    # Retrieve form input values from the session
+    city = session.get('city')
+    country = session.get('country')
+
+    # Store form input values in the user object
+    user.city = city
+    user.country = country
+
+    user.form_input = {
+        'city': city,
+        'country': country
+    }
+
+    print('user', user.form_input)
 
 
 def user_logout():
@@ -64,7 +85,12 @@ def homepage():
     '''Render homepage'''
 
     if g.user:
-        return render_template('user.html')
+        # Retrieve the form input from the session
+        form_input = g.user.form_input
+        print('HOMEPAGE', form_input)
+
+        # Pass the form input to the template
+        return render_template('user.html', form_input=form_input)
 
     else:
         return render_template('homepage.html')
@@ -84,15 +110,16 @@ def signup():
             user = User.signup(username=form.username.data,
                                email=form.email.data, password=form.password.data)
 
+            # Store the form input in the user object during signup
+            user_login(user)
+
             db.session.commit()
 
         except IntegrityError:
             flash('The username you fancy has already been occupied by another lucky soul! Please specify an alternate. :) ', 'error')
-
             return render_template('signup.html', form=form)
 
         user_login(user)
-
         return redirect('/')
 
     return render_template('signup.html', form=form)
@@ -139,8 +166,22 @@ def user_page():
         city = data['city']
         country = data['country']
 
+        # Store the form input in the session
+        session['city'] = city
+        session['country'] = country
+
+        # Update the form_input dictionary in the session
+        session['form_input'] = {
+            'city': city,
+            'country': country
+        }
+
+        # Update the form_input attribute in the user object
+        g.user.form_input = session['form_input']
+
         response = requests.get(ASTRONOMY_API_URL, params={
-                                'apiKey': API_KEY, 'location': f'{city}, {country}'})
+            'apiKey': API_KEY, 'location': f'{city}, {country}'})
+
         astronomical_data = response.json()
 
         location = astronomical_data['location']
@@ -166,7 +207,7 @@ def user_page():
             "sunset": sunset,
             "day_length": day_length,
             "moonrise": moonrise,
-            "moonset": moonset
+            "moonset": moonset,
         }
 
         return jsonify(resp)
