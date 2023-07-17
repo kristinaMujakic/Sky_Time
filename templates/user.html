@@ -3,15 +3,14 @@
 
 <div class="container">
     <h2>Welcome {{ g.user.username }}, the sky explorer!</h2>
-    <p>{{form_input}}</p>
 
     <div class="usergrid">
         <form id="search-form" class="formstyle formgrid">
             <div class="col1 edit">
                 <label for="city">City:</label>
-                <input type="text" id="city" value="{{ form_input.city }}" required>
+                <input type="text" id="city" required>
                 <label for="country">Country:</label>
-                <input type="text" id="country" value="{{ form_input.country }}">
+                <input type="text" id="country">
                 <label for="date">Date:</label>
                 <input type="text" id="date">
             </div>
@@ -43,6 +42,6 @@
     </div>
 
     <p class="returnbtn"><a href="/logout">Log Out</a></p>
+    <a href="/favourites">Favourites</a>
 </div>
-
 {% endblock %}

@@ -1,5 +1,3 @@
-'''Models for Sky Time app'''
-
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -22,6 +20,8 @@ class User(db.Model):
     username = db.Column(db.String(50), primary_key=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
+
+    search_data = db.relationship('SearchData', back_populates='user')
 
     locations = db.relationship(
         'Location', back_populates='user', cascade='all, delete')
@@ -92,3 +92,16 @@ class UserFavourite(db.Model):
 
     user = db.relationship('User', back_populates='favourites')
     location = db.relationship('Location', back_populates='favourites')
+
+
+class SearchData(db.Model):
+    '''Model for storing search data'''
+
+    __tablename__ = 'search_data'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(50), db.ForeignKey('users.username'))
+    city = db.Column(db.String(100))
+    country = db.Column(db.String(100))
+
+    user = db.relationship('User', back_populates='search_data')

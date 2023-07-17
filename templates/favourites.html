@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Welcome {{ g.user.username }}, the sky explorer!</h2>
+
+    <h3>Your Favorites:</h3>
+    <form id="favourites-form">
+        {% for data in search_data %}
+        <div>
+            <label>
+                <input type="checkbox" class="toggle" data-city="{{ data.city }}" data-country="{{ data.country }}">
+                City: {{ data.city }}, Country: {{ data.country }}
+            </label>
+            <ul>
+                {% if data.sunrise %}
+                <li>Sunrise</li>
+                {% endif %}
+                {% if data.sunset %}
+                <li>Sunset</li>
+                {% endif %}
+                {% if data.day_length %}
+                <li>Day Length</li>
+                {% endif %}
+                {% if data.moonrise %}
+                <li>Moonrise</li>
+                {% endif %}
+                {% if data.moonset %}
+                <li>Moonset</li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endfor %}
+        <button type="submit">Get Selected Data</button>
+    </form>
+
+</div>
+
+<div id="selected-data"></div>
+<p class="returnbtn"><a href="/">Back</a></p>
+
+{% endblock %}

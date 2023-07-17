@@ -4,9 +4,10 @@ from flask import Flask, g, session, render_template, redirect, flash, jsonify, 
 import requests
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import desc
 
 from forms import SignUpForm, LogInForm
-from models import db, connect_db, User
+from models import db, connect_db, User, SearchData
 
 CURR_USER_KEY = 'curr_user'
 ASTRONOMY_API_URL = 'https://api.ipgeolocation.io/astronomy'
@@ -40,37 +41,14 @@ def user_global():
 
     if CURR_USER_KEY in session:
         g.user = User.query.get(session[CURR_USER_KEY])
-
-    #   Retrieve form input from session and update g.user object
-        if 'form_input' in session:
-            g.user.form_input = session['form_input']
-
-            print('USER GLOBAL', g.user.form_input)
-
     else:
         g.user = None
 
 
 def user_login(user):
-    '''Login the User and retrieve form input values'''
+    '''Login the User'''
 
     session[CURR_USER_KEY] = user.username
-    # session['form_input'] = g.user.form_input
-
-    # Retrieve form input values from the session
-    city = session.get('city')
-    country = session.get('country')
-
-    # Store form input values in the user object
-    user.city = city
-    user.country = country
-
-    user.form_input = {
-        'city': city,
-        'country': country
-    }
-
-    print('user', user.form_input)
 
 
 def user_logout():
@@ -85,13 +63,7 @@ def homepage():
     '''Render homepage'''
 
     if g.user:
-        # Retrieve the form input from the session
-        form_input = g.user.form_input
-        print('HOMEPAGE', form_input)
-
-        # Pass the form input to the template
-        return render_template('user.html', form_input=form_input)
-
+        return render_template('user.html')
     else:
         return render_template('homepage.html')
 
@@ -110,17 +82,14 @@ def signup():
             user = User.signup(username=form.username.data,
                                email=form.email.data, password=form.password.data)
 
-            # Store the form input in the user object during signup
-            user_login(user)
-
+            db.session.add(user)
             db.session.commit()
+
+            user_login(user)
+            return redirect('/')
 
         except IntegrityError:
             flash('The username you fancy has already been occupied by another lucky soul! Please specify an alternate. :) ', 'error')
-            return render_template('signup.html', form=form)
-
-        user_login(user)
-        return redirect('/')
 
     return render_template('signup.html', form=form)
 
@@ -128,6 +97,9 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     '''Handle User login'''
+
+    if CURR_USER_KEY in session:
+        del session[CURR_USER_KEY]
 
     form = LogInForm()
 
@@ -148,7 +120,6 @@ def logout():
     '''Handle User logout'''
 
     user_logout()
-
     return render_template('logout.html')
 
 
@@ -166,19 +137,6 @@ def user_page():
         city = data['city']
         country = data['country']
 
-        # Store the form input in the session
-        session['city'] = city
-        session['country'] = country
-
-        # Update the form_input dictionary in the session
-        session['form_input'] = {
-            'city': city,
-            'country': country
-        }
-
-        # Update the form_input attribute in the user object
-        g.user.form_input = session['form_input']
-
         response = requests.get(ASTRONOMY_API_URL, params={
             'apiKey': API_KEY, 'location': f'{city}, {country}'})
 
@@ -192,13 +150,14 @@ def user_page():
         moonrise = astronomical_data['moonrise']
         moonset = astronomical_data['moonset']
 
-        search_data = {
-            "city": location['city'],
-            "country": location['country'],
-            "date": date,
-            "latitude": location['latitude'],
-            "longitude": location['longitude']
-        }
+        if g.user:
+            search_data = SearchData(
+                user_id=g.user.username, city=city, country=country)
+
+            print('search', search_data)
+
+            db.session.add(search_data)
+            db.session.commit()
 
         resp = {
             "location": location,
@@ -211,6 +170,72 @@ def user_page():
         }
 
         return jsonify(resp)
+
+    except Exception as e:
+        print(f"Error retrieving location data: {str(e)}")
+        flash('An error occurred while retrieving location data. Please try again later.', 'error')
+        return redirect('/')
+
+
+@app.route('/favourites')
+def favourites():
+    '''Display user's last 5 search data from the database'''
+
+    if not g.user:
+        flash('Access unauthorized', 'error')
+        return redirect('/')
+
+    user = User.query.get(g.user.username)
+    if not user:
+        flash('User not found', 'error')
+        return redirect('/')
+
+    search_data = SearchData.query.filter_by(
+        user_id=user.username).order_by(desc(SearchData.id)).limit(5).all()
+
+    return render_template('favourites.html', search_data=search_data)
+
+
+@app.route('/get_selected_data', methods=['POST'])
+def get_selected_data():
+    '''Handle form submission for selected data'''
+
+    if not g.user:
+        flash('Access unauthorized', 'error')
+        return redirect('/')
+
+    data = request.get_json()
+
+    try:
+        selected_data = []
+
+        for item in data:
+            city = item['city']
+            country = item['country']
+
+            response = requests.get(ASTRONOMY_API_URL, params={
+                'apiKey': API_KEY, 'location': f'{city}, {country}'})
+            astronomical_data = response.json()
+
+            location = astronomical_data['location']
+            date = astronomical_data['date']
+            sunrise = astronomical_data['sunrise']
+            sunset = astronomical_data['sunset']
+            day_length = astronomical_data['day_length']
+            moonrise = astronomical_data['moonrise']
+            moonset = astronomical_data['moonset']
+
+            selected_data.append({
+                'location': location,
+                'date': date,
+                'sunrise': sunrise,
+                'sunset': sunset,
+                'day_length': day_length,
+                'moonrise': moonrise,
+                'moonset': moonset
+            })
+
+        return jsonify(selected_data)
 
     except Exception as e:
         print(f"Error retrieving location data: {str(e)}")

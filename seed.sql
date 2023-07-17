@@ -38,3 +38,12 @@ CREATE TABLE users_favourites (
     moonset_time TIME,
     day_length TIME
 );
+
+-- Table: search_data
+CREATE TABLE search_data (
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR(50) REFERENCES users(username) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL
+  
+);
