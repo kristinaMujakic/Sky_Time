@@ -4,7 +4,6 @@ const defaultDate = currentDate.toISOString().split('T')[0];
 $(function () {
     $('#date').val(defaultDate);
 
-    // Select all options when "Select All" checkbox is checked
     $('#select-all').change(function () {
         const isChecked = $(this).prop('checked');
 
@@ -14,65 +13,76 @@ $(function () {
         });
     });
 
-    // Handle form submission
-    $("#search-form").on("submit", processForm);
+    $("#get-sky-time-btn").on("click", processForm);
 
-    // Handle form submission for the favourites page
-    $("#favourites-form").on("submit", processSelectedData);
+    $(".toggle").on("change", function () {
+        const selectedCheckboxes = $(".toggle:checked");
+        const selectedData = [];
+
+        selectedCheckboxes.each(function () {
+            const city = $(this).data("city");
+            const country = $(this).data("country");
+            selectedData.push({ city, country });
+        });
+
+        processSelectedData(selectedData);
+    });
 });
 
 async function processForm(evt) {
     evt.preventDefault();
 
-    const formData = {
-        city: $('#city').val(),
-        country: $('#country').val(),
-        date: $('#date').val(),
-        selectAll: $('#select-all').prop('checked'),
-    };
+    const city = $('#city').val();
+    const country = $('#country').val();
+    const selectedCheckboxes = $(".toggle input[type='checkbox']:checked");
 
-    try {
-        const response = await fetch('/search', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
+    if (city.trim() === '' || country.trim() === '') {
+        flashErrorMessage("Please enter a city and a country.");
+        return;
+    } else {
+        hideErrorMessage();
+    }
 
-        if (!response.ok) {
-            throw new Error(response.statusText);
+    if (selectedCheckboxes.length === 0) {
+        flashErrorMessage("Please select at least one option.");
+    } else {
+        hideErrorMessage();
+
+        const formData = {
+            city: city,
+            country: country,
+            date: $('#date').val(),
+            selectAll: $('#select-all').prop('checked'),
+        };
+
+        try {
+            const response = await fetch('/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            const contentType = response.headers.get('content-type');
+
+            if (contentType && contentType.indexOf('application/json') !== -1) {
+                const data = await response.json();
+                handleResponse(data);
+            } else {
+                throw new Error('Response is not valid JSON');
+            }
+        } catch (error) {
+            console.log(error);
         }
-
-        const contentType = response.headers.get('content-type');
-
-        if (contentType && contentType.indexOf('application/json') !== -1) {
-            const data = await response.json();
-            handleResponse(data);
-        } else {
-            throw new Error('Response is not valid JSON');
-        }
-
-    } catch (error) {
-        console.log(error);
     }
 }
 
-async function processSelectedData(evt) {
-    evt.preventDefault();
-
-
-    const selectedCheckboxes = $(".toggle:checked");
-    const selectedData = [];
-
-
-    selectedCheckboxes.each(function () {
-        const city = $(this).data("city");
-        const country = $(this).data("country");
-        selectedData.push({ city, country });
-    });
-
-
+async function processSelectedData(selectedData) {
     try {
         const response = await fetch('/get_selected_data', {
             method: 'POST',
@@ -123,6 +133,7 @@ function handleResponse(resp) {
 }
 
 function handleSelectedData(data) {
+    console.log('Received data:', data);
 
     $('#selected-data').empty();
 
@@ -135,6 +146,11 @@ function handleSelectedData(data) {
     ];
 
     for (const locationData of data) {
+        const city = locationData.location['city'];
+        console.log('City:', city);
+        const headerElement = $('<p>').addClass('search-header').text(city);
+        $('#selected-data').append(headerElement);
+
         const locationElement = $('<div>').addClass('location-data');
 
         for (const field of fields) {
@@ -147,4 +163,14 @@ function handleSelectedData(data) {
 
         $('#selected-data').append(locationElement);
     }
+}
+
+function flashErrorMessage(message) {
+    hideErrorMessage();
+    const errorMessageElement = $('<p>').text(message).addClass('error');
+    $('.getBtn').prepend(errorMessageElement);
+}
+
+function hideErrorMessage() {
+    $('.error').remove();
 }

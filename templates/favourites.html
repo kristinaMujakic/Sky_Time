@@ -4,40 +4,21 @@
 
 <div class="container">
     <h2>Welcome {{ g.user.username }}, the sky explorer!</h2>
+    <div class="containerList">
+        <div id="favourites-form" class="formstyle list">
+            <p class="list">Click on one of your previous picks!</p>
+            {% for data in search_data %}
 
-    <h3>Your Favorites:</h3>
-    <form id="favourites-form">
-        {% for data in search_data %}
-        <div>
-            <label>
-                <input type="checkbox" class="toggle" data-city="{{ data.city }}" data-country="{{ data.country }}">
+            <label class="list">
+                <input type="checkbox" class="list toggle" data-city="{{ data.city }}"
+                    data-country="{{ data.country }}">
                 City: {{ data.city }}, Country: {{ data.country }}
             </label>
-            <ul>
-                {% if data.sunrise %}
-                <li>Sunrise</li>
-                {% endif %}
-                {% if data.sunset %}
-                <li>Sunset</li>
-                {% endif %}
-                {% if data.day_length %}
-                <li>Day Length</li>
-                {% endif %}
-                {% if data.moonrise %}
-                <li>Moonrise</li>
-                {% endif %}
-                {% if data.moonset %}
-                <li>Moonset</li>
-                {% endif %}
-            </ul>
+
+            {% endfor %}
         </div>
-        {% endfor %}
-        <button type="submit">Get Selected Data</button>
-    </form>
+        <div id="selected-data" class="formstyle listDiv"></div>
+    </div>
+    <p class="returnbtn"><a href="/">Back</a></p>
 
-</div>
-
-<div id="selected-data"></div>
-<p class="returnbtn"><a href="/">Back</a></p>
-
-{% endblock %}
+    {% endblock %}

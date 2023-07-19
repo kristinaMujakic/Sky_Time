@@ -6,42 +6,68 @@
 
     <div class="usergrid">
         <form id="search-form" class="formstyle formgrid">
-            <div class="col1 edit">
-                <label for="city">City:</label>
+
+            <div class="searchField">
+                <label for="city">City</label>
                 <input type="text" id="city" required>
-                <label for="country">Country:</label>
+                <label for="country" required>Country</label>
                 <input type="text" id="country">
-                <label for="date">Date:</label>
+                <label for="date">Date</label>
                 <input type="text" id="date">
             </div>
 
-            <div class="col2 edit toggle">
-                <label for="select-all">Select All:</label>
-                <input type="checkbox" id="select-all">
-                <label for="sunrise">Sunrise:</label>
-                <input type="checkbox" id="sunrise" name="checkbox_option" value="sunrise">
-                <label for="sunset">Sunset:</label>
-                <input type="checkbox" id="sunset" name="checkbox_option" value="sunset">
-                <label for="day-length">Day Length:</label>
-                <input type="checkbox" id="day_length" name="checkbox_option" value="day_length">
-                <label for="moonrise">Moonrise:</label>
-                <input type="checkbox" id="moonrise" name="checkbox_option" value="moonrise">
-                <label for="moonset">Moonset:</label>
-                <input type="checkbox" id="moonset" name="checkbox_option" value="moonset">
+            <div class="checkboxField toggle">
+                <label class="centered-label" for="select-all">
+                    <img src="/static/images/svg/all.svg" alt="Select All Icon">
+                    <span>Select All</span>
+                    <input type="checkbox" id="select-all">
+                </label>
+                <label class="centered-label" for="sunrise">
+                    <img src="/static/images/svg/sunrise.svg" alt="Sunrise Icon">
+                    <span>Sunrise</span>
+                    <input type="checkbox" id="sunrise" name="checkbox_option" value="sunrise">
+                </label>
+                <label class="centered-label" for="sunset">
+                    <img src="/static/images/svg/sunset.svg" alt="Sunset Icon">
+                    <span>Sunset</span>
+                    <input type="checkbox" id="sunset" name="checkbox_option" value="sunset">
+                </label>
+                <label class="centered-label" for="day_length">
+                    <img src="/static/images/svg/day.svg" alt="Day Length Icon">
+                    <span>Day Length</span>
+                    <input type="checkbox" id="day_length" name="checkbox_option" value="day_length">
+                </label>
+                <label class="centered-label" for="moonrise">
+                    <img src="/static/images/svg/moonrise.svg" alt="Moonrise Icon">
+                    <span>Moonrise</span>
+                    <input type="checkbox" id="moonrise" name="checkbox_option" value="moonrise">
+                </label>
+                <label class="centered-label" for="moonset">
+                    <img src="/static/images/svg/moonset.svg" alt="Moonset Icon">
+                    <span>Moonset</span>
+                    <input type="checkbox" id="moonset" name="checkbox_option" value="moonset">
+                </label>
             </div>
-            <div class="row2"><button type="submit">Get Sky Time</button></div>
+
+            <div class="getBtn">
+                <button type="submit" id="get-sky-time-btn">Get Sky Time</button>
+            </div>
+
         </form>
 
-        <div class="formstyle edit">
+        <div class="resultsField">
             <p id="sunrise-info"></p>
             <p id="sunset-info"></p>
             <p id="day-length-info"></p>
             <p id="moonrise-info"></p>
             <p id="moonset-info"></p>
         </div>
+
+        <div class="favBtn"><a href="/favourites" class="favBtn">Reveal My Previous Sky Time Picks!</a></div>
+
     </div>
 
     <p class="returnbtn"><a href="/logout">Log Out</a></p>
-    <a href="/favourites">Favourites</a>
+
 </div>
 {% endblock %}

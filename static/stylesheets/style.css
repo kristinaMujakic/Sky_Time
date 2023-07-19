@@ -10,10 +10,11 @@ html {
 
 body {
     font-family: 'Roboto', 'Open Sans', 'Lato', sans-serif;
-    color: rgba(227, 109, 225, 0.4);
+    color: rgba(227, 109, 225, 0.58);
     font-size: 4.8rem;
     text-align: center;
-    line-height: 1;
+    line-height: 1.1;
+    letter-spacing: 2px;
 
     background-image: url(../images/sky_cover.jpg);
     background-size: cover;
@@ -22,7 +23,7 @@ body {
 
 h1,
 h2 {
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 }
 
 .container {
@@ -32,19 +33,6 @@ h2 {
     align-items: center;
     margin: 0 30px;
     height: 100vh;
-}
-
-.signup,
-.login {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: self-end;
-}
-
-.signup button,
-.login button {
-    align-self: stretch;
 }
 
 /* FORM STYLE */
@@ -74,16 +62,32 @@ h2 {
     background-color: rgba(227, 109, 225, 0.4);
     cursor: pointer;
     transition: background-color 0.3s ease;
-    padding: 0.8rem 2rem;
+    margin-top: 1.8rem;
+    width: 100%;
+    padding: 10px;
 }
 
 .formstyle button:hover {
     background-color: rgba(231, 197, 231, 0.8);
 }
 
+.signup,
+.login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: self-end;
+}
+
+.signup button,
+.login button {
+    align-self: stretch;
+}
+
 .goodbye p {
     margin-bottom: 15px;
-    font-size: 4.8rem;
+    font-size: 6rem;
+
 }
 
 /* RETURN LINK */
@@ -98,7 +102,7 @@ h2 {
 a {
     display: inline-block;
     text-decoration: none;
-    color: rgba(231, 197, 231, 0.8);
+    color: rgba(231, 197, 231, 058);
     background-color: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -117,37 +121,128 @@ a:active {
     transition: all 0.4s ease;
 }
 
+/* SEARCH FORM */
+
 .usergrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 15px;
+    grid-template-rows: 85% 15%;
+    gap: 20px;
 }
 
 .formgrid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(6, auto);
-    gap: 15px;
+    grid-row: 1 / span 2;
+    align-content: space-between;
 }
 
-.col1 {
-    grid-column: 1;
-    grid-row: 1;
+.searchField,
+.checkboxField {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.col2 {
-    grid-column: 2;
-    grid-row: 1;
-    align-self: center;
-}
+.resultsField {
+    background-image: url('../images/background_cell3.jpg');
+    background-size: cover;
+    border-radius: 9px;
 
-.row2 {
-    grid-column: 1 / span 2;
-}
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    color: #ffffffe5;
 
-.edit {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
+}
+
+.getBtn {
+    grid-column: 1 / span 2;
+}
+
+.getBtn button {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.favBtn {
+    align-self: center;
+}
+
+.favBtn a {
+    color: rgba(221, 33, 218, 0.9);
+}
+
+.favBtn a:hover,
+.favBtn a:active {
+    color: rgba(231, 197, 231, 0.8);
+    transition: all 0.4s ease;
+}
+
+
+.checkboxField label {
+    font-size: 2.1rem;
+}
+
+.checkboxField img {
+    width: 35px;
+    height: 35px;
+
+    margin-left: 30px;
+    vertical-align: middle;
+
+    float: left;
+}
+
+.checkboxField input {
+    margin-left: 30px;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.error {
+    color: rgb(251, 0, 234) !important;
+    font-size: 2.4rem !important;
+    margin-top: 15px !important;
+
+    text-transform: uppercase;
+    text-align: center !important;
+}
+
+/* FAVOURITES */
+
+.containerList {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 15px
+}
+
+.formstyle .list {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    font-size: 2.8rem;
+}
+
+.formstyle .list .listDiv {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    font-size: 2.4rem;
+}
+
+.formstyle .list label input[type='checkbox'] {
+    padding: 1rem;
+    font-size: 5rem;
+    border-radius: 5px;
 }

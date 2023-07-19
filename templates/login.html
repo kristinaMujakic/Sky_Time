@@ -8,12 +8,12 @@
         <button type="submit">Enjoy the cosmic ride</button>
     </form>
 
-</div>
+    <div class="error">
+        {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="error">{{ message }}</div>
+        {% endfor %}
+    </div>
 
-<div class="flash-messages">
-    {% for category, message in get_flashed_messages(with_categories=True) %}
-    <div class="alert alert-{{ category }}">{{ message }}</div>
-    {% endfor %}
 </div>
 
 <p class="returnbtn"><a href="/">Back</a></p>
