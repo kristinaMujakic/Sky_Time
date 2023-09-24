@@ -3,22 +3,31 @@
 {% block content %}
 
 <div class="container">
-    <h2>Welcome {{ g.user.username }}, the sky explorer!</h2>
-    <div class="containerList">
-        <div id="favourites-form" class="formstyle list">
-            <p class="list">Click on one of your previous picks!</p>
-            {% for data in search_data %}
 
+    <div class="favouritesContainer">
+        <p>Here, you can choose one or more from your previous picks &hearts;</p>
+
+        <form id="favourites-form" class="formstyle">
+
+            {% for data in filtered_data %}
             <label class="list">
-                <input type="checkbox" class="list toggle" data-city="{{ data.city }}"
-                    data-country="{{ data.country }}">
-                City: {{ data.city }}, Country: {{ data.country }}
+
+                <input type="checkbox" id="fav-toggle" class="list-toggle" data-city="{{ data[0] }}"
+                    data-country="{{ data[1] }}">
+                {{ data[0] }}
+
             </label>
-
             {% endfor %}
-        </div>
-        <div id="selected-data" class="formstyle listDiv"></div>
-    </div>
-    <p class="returnbtn"><a href="/">Back</a></p>
 
-    {% endblock %}
+            <div class="getBtn">
+                <button class="submitBtn" type="button" id="get-btn-fav">Get Sky Time</button>
+            </div>
+        </form>
+
+        <div id="selectedData" class="favouritesResults"></div>
+    </div>
+
+    <p class="returnbtn"><a href="/">Back</a></p>
+</div>
+
+{% endblock %}

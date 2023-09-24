@@ -1,13 +1,12 @@
-import os
-
 from flask import Flask, g, session, render_template, redirect, flash, jsonify, request
+import os
 import requests
-from flask_debugtoolbar import DebugToolbarExtension
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy import desc
 
-from forms import SignUpForm, LogInForm
+from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, SearchData
+from forms import SignUpForm, LogInForm
+from sqlalchemy import desc
+from sqlalchemy.exc import IntegrityError
 
 CURR_USER_KEY = 'curr_user'
 ASTRONOMY_API_URL = 'https://api.ipgeolocation.io/astronomy'
@@ -24,7 +23,7 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 
 # Read the API key from the file
 with open('api_key.txt', 'r') as file:
@@ -142,8 +141,8 @@ def user_page():
 
         astronomical_data = response.json()
 
-        location = astronomical_data['location']
-        date = astronomical_data['date']
+        # location = astronomical_data['location']
+        # date = astronomical_data['date']
         sunrise = astronomical_data['sunrise']
         sunset = astronomical_data['sunset']
         day_length = astronomical_data['day_length']
@@ -154,14 +153,12 @@ def user_page():
             search_data = SearchData(
                 user_id=g.user.username, city=city, country=country)
 
-            print('search', search_data)
-
             db.session.add(search_data)
             db.session.commit()
 
         resp = {
-            "location": location,
-            "date": date,
+            # "location": location,
+            # "date": date,
             "sunrise": sunrise,
             "sunset": sunset,
             "day_length": day_length,
@@ -179,21 +176,34 @@ def user_page():
 
 @app.route('/favourites')
 def favourites():
-    '''Display user's last 5 search data from the database'''
+    '''Display user's last 5 different search data from the database'''
 
     if not g.user:
         flash('Access unauthorized', 'error')
         return redirect('/')
 
     user = User.query.get(g.user.username)
+
     if not user:
         flash('User not found', 'error')
         return redirect('/')
 
-    search_data = SearchData.query.filter_by(
-        user_id=user.username).order_by(desc(SearchData.id)).limit(5).all()
+    search_data = (
+        db.session.query(SearchData.city)
+        .filter(SearchData.user_id == user.username)
+        .order_by(desc(SearchData.id))
+        .limit(5)
+        .all()
+    )
 
-    return render_template('favourites.html', search_data=search_data)
+    filtered_data = []
+
+    for city in search_data:
+
+        if city not in filtered_data:
+            filtered_data.append(city)
+
+    return render_template('favourites.html', filtered_data=filtered_data)
 
 
 @app.route('/get_selected_data', methods=['POST'])

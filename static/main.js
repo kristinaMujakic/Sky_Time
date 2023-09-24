@@ -11,6 +11,11 @@ $(function () {
             disabled: isChecked,
             checked: isChecked ? true : false
         });
+
+        $('#fav-toggle').not(this).prop({
+            disabled: isChecked,
+            checked: isChecked ? true : false
+        });
     });
 
     $("#get-sky-time-btn").on("click", processForm);
@@ -26,6 +31,26 @@ $(function () {
         });
 
         processSelectedData(selectedData);
+    });
+
+    $("#get-btn-fav").on("click", async function (evt) {
+        evt.preventDefault();
+
+        const selectedData = [];
+
+        // Loop through selected checkboxes and prepare the selected data
+        $(".list-toggle:checked").each(function () {
+            const city = $(this).data("city");
+            const country = $(this).data("country");
+
+            selectedData.push({
+                city: city,
+                country: country
+            });
+        });
+
+        // Call the function to process selected data
+        await processSelectedData(selectedData);
     });
 });
 
@@ -133,7 +158,6 @@ function handleResponse(resp) {
 }
 
 function handleSelectedData(data) {
-    console.log('Received data:', data);
 
     $('#selected-data').empty();
 
@@ -147,11 +171,13 @@ function handleSelectedData(data) {
 
     for (const locationData of data) {
         const city = locationData.location['city'];
-        console.log('City:', city);
-        const headerElement = $('<p>').addClass('search-header').text(city);
-        $('#selected-data').append(headerElement);
 
-        const locationElement = $('<div>').addClass('location-data');
+        const locationElement = $('<div>').addClass('locationData');
+
+        const headerElement = $('<p>').addClass('city').text(city);
+        locationElement.append(headerElement);
+
+        $('#selectedData').append(locationElement);
 
         for (const field of fields) {
             const value = locationData[field.id];

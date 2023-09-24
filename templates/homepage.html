@@ -1,16 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container">
+<div class="container ">
 
-    <h1>Welcome to Sky Time</h1>
+    <div class="homepage">
 
-    {% if not g.user %}
+        <h1>Welcome to Sky Time</h1>
 
-    <p><a class="homepagebtn" href="/signup">Sign up</a></p>
-    <p><a class="homepagebtn" href="/login">Log in</a></p>
+        {% if not g.user %}
 
-    {% endif %}
+        <p class="homepage-p">Witness stunning sunsets, moonsets, and more with ease.</p>
+        <p class="homepage-p">
+            <a class="homepagebtn" href="/signup">Sign up</a>
+            or
+            <a class="homepagebtn" href="/login">Log in</a>
+        </p>
+        <p class="homepage-p">Let's experience the wonders of the sky!</p>
+
+        {% endif %}
+
+    </div>
 
 </div>
 

@@ -1,0 +1,141 @@
+/* Tablet (min-width: 768px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    body {
+        font-size: 3.5rem;
+    }
+
+    .usergrid {
+        grid-template-columns: 1fr;
+    }
+
+    .formstyle label,
+    .formstyle p {
+        margin-right: 0;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .getBtn {
+        grid-column: auto;
+    }
+
+    .favBtn {
+        align-self: center;
+        margin-top: 20px;
+    }
+}
+
+/* Phone (max-width: 767px) */
+@media screen and (max-width: 767px) {
+    body {
+        font-size: 2.8rem;
+    }
+
+    .usergrid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .formstyle label,
+    .formstyle p {
+        margin-right: 0;
+        margin-bottom: 8px;
+        text-align: center;
+    }
+
+
+    .formstyle input[type='text'] {
+        padding: 0.3rem;
+        font-size: 2rem;
+        border-radius: 5px;
+    }
+
+
+    .searchField,
+    .checkboxField {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+
+    .checkboxField label {
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    .checkboxField img {
+        margin-left: 0;
+    }
+
+    .checkboxField input {
+        margin-left: 0;
+    }
+
+
+    .getBtn,
+    .favBtn {
+        margin-top: 10px;
+        grid-column: 1 / span 2;
+        text-align: center;
+    }
+
+    .getBtn button,
+    .favBtn a {
+        width: 100%;
+    }
+
+
+    .returnbtn {
+        bottom: 5px;
+    }
+}
+
+/* Small phones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+
+
+    body {
+        font-size: 2.5rem;
+    }
+
+
+    .formstyle label,
+    .formstyle p {
+        margin-right: 0;
+        margin-bottom: 6px;
+        text-align: center;
+    }
+
+
+    .formstyle input[type='text'] {
+        padding: 0.3rem;
+        font-size: 1.8rem;
+        border-radius: 5px;
+    }
+
+
+    .searchField {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+
+    .getBtn,
+    .favBtn {
+        margin-top: 10px;
+        grid-column: 1 / span 2;
+        text-align: center;
+    }
+
+    .getBtn button,
+    .favBtn a {
+        width: 100%;
+    }
+
+
+    .returnbtn {
+        bottom: 5px;
+    }
+}

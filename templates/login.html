@@ -5,14 +5,12 @@
 
     <form method="POST" class="formstyle login">
         {% include "_form.html" %}
-        <button type="submit">Enjoy the cosmic ride</button>
+        <button class="submitBtn" type="submit">Enjoy the cosmic ride</button>
     </form>
 
-    <div class="error">
-        {% for category, message in get_flashed_messages(with_categories=True) %}
-        <div class="error">{{ message }}</div>
-        {% endfor %}
-    </div>
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+    <p class="error">{{ message }}</p>
+    {% endfor %}
 
 </div>
 

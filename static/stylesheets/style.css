@@ -9,33 +9,50 @@ html {
 }
 
 body {
-    font-family: 'Roboto', 'Open Sans', 'Lato', sans-serif;
-    color: rgba(227, 109, 225, 0.58);
-    font-size: 4.8rem;
+    font-family: 'Shadows Into Light', 'Quicksand', 'Nothing You Could Do', 'Zeyada', 'Quicksand', 'Montserrat', cursive;
+    font-size: 4.5rem;
+    color: #ffffb3;
     text-align: center;
     line-height: 1.1;
-    letter-spacing: 2px;
+    letter-spacing: 3.5px;
 
-    background-image: url(../images/sky_cover.jpg);
+    background-image: linear-gradient(rgba(34, 34, 34, 0.2),
+            rgba(34, 34, 34, 0.2)),
+        url(../images/cover.jpg);
     background-size: cover;
     height: 100vh;
 }
 
 h1,
-h2 {
-    margin-bottom: 35px;
+h2,
+h3 {
+    margin-bottom: 30px;
+    letter-spacing: 4.8px;
 }
+
+/* CONTAINER **************************************************/
 
 .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0 30px;
+    margin: 0 180px;
     height: 100vh;
 }
 
-/* FORM STYLE */
+.homepage {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+}
+
+.homepage-p {
+    font-size: 3.2rem;
+}
+
+/* FORM STYLE **************************************************/
 
 .formstyle label,
 .formstyle p {
@@ -57,18 +74,77 @@ h2 {
     border: none;
 }
 
-.formstyle button {
-    color: #ffffff;
-    background-color: rgba(227, 109, 225, 0.4);
+.checkboxField {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.checkboxField input[type="checkbox"] {
+    display: none;
+}
+
+.checkboxField label {
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 2.1rem;
+}
+
+.checkboxField input[type="checkbox"]+label .checkbox-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Add this line */
+}
+
+.checkboxField input[type="checkbox"]+label .circle {
+    height: 15px;
+    width: 15px;
+    border: 2px solid #ffff4d;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.checkboxField input[type="checkbox"]:checked+label .circle {
+    background-color: #ffff4d;
+}
+
+.checkboxField img {
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+}
+
+.checkboxField input {
+    display: none;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.formstyle button {
+    color: #4c4c00;
+    background-color: #ffff99;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+    cursor: pointer;
+    transition: background-color 0.5s ease;
     margin-top: 1.8rem;
     width: 100%;
     padding: 10px;
 }
 
 .formstyle button:hover {
-    background-color: rgba(231, 197, 231, 0.8);
+    background-color: #ffff66eb;
+}
+
+.submitBtn {
+    font-family: 'Shadows Into Light', 'Quicksand', 'Nothing You Could Do', 'Zeyada', 'Quicksand', 'Montserrat', cursive !important;
+    font-weight: bold;
 }
 
 .signup,
@@ -84,12 +160,6 @@ h2 {
     align-self: stretch;
 }
 
-.goodbye p {
-    margin-bottom: 15px;
-    font-size: 6rem;
-
-}
-
 /* RETURN LINK */
 
 .returnbtn {
@@ -97,12 +167,21 @@ h2 {
     left: 50%;
     transform: translateX(-50%);
     bottom: 20px;
+    color: #ffff80 !important;
+}
+
+.goodbye {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 0 300px;
+    font-size: 6rem;
 }
 
 a {
     display: inline-block;
     text-decoration: none;
-    color: rgba(231, 197, 231, 058);
+    color: #ffff4d;
     background-color: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -117,7 +196,7 @@ a {
 
 a:hover,
 a:active {
-    color: rgba(227, 109, 225, 0.4);
+    color: #ffffb3;
     transition: all 0.4s ease;
 }
 
@@ -136,21 +215,24 @@ a:active {
     align-content: space-between;
 }
 
-.searchField,
-.checkboxField {
+.searchField {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
+
 .resultsField {
-    background-image: url('../images/background_cell3.jpg');
+    background-image: linear-gradient(rgba(34, 34, 34, 0.2),
+            rgba(34, 34, 34, 0.2)),
+        url(../images/cell3_cover.jpg);
     background-size: cover;
     border-radius: 9px;
 
-    font-size: 2.5rem;
+    font-size: 3rem;
+    letter-spacing: 5px;
     text-transform: uppercase;
-    color: #ffffffe5;
+    color: #ffffe0;
 
     display: flex;
     flex-direction: column;
@@ -172,77 +254,52 @@ a:active {
 }
 
 .favBtn a {
-    color: rgba(221, 33, 218, 0.9);
+    color: #ffff80;
 }
 
 .favBtn a:hover,
 .favBtn a:active {
-    color: rgba(231, 197, 231, 0.8);
+    color: #ffffcc;
     transition: all 0.4s ease;
 }
 
-
-.checkboxField label {
-    font-size: 2.1rem;
-}
-
-.checkboxField img {
-    width: 35px;
-    height: 35px;
-
-    margin-left: 30px;
-    vertical-align: middle;
-
-    float: left;
-}
-
-.checkboxField input {
-    margin-left: 30px;
-}
-
-.clearfix::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
 .error {
-    color: rgb(251, 0, 234) !important;
+    color: #ff8080 !important;
     font-size: 2.4rem !important;
-    margin-top: 15px !important;
+    font-weight: bold;
+    margin-top: 20px !important;
 
     text-transform: uppercase;
     text-align: center !important;
+    line-height: 2.5;
 }
 
-/* FAVOURITES */
+/* FAVOURITES **************************************************/
 
-.containerList {
+.favouritesContainer {
+    width: 700px;
+    gap: 20px;
+
+}
+
+.fav-p {
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+
+.favouritesResults {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 15px;
+    gap: 20px;
+    justify-items: center;
+
+}
+
+.locationData {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-
-    gap: 15px
-}
-
-.formstyle .list {
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-    font-size: 2.8rem;
-}
-
-.formstyle .list .listDiv {
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-    font-size: 2.4rem;
-}
-
-.formstyle .list label input[type='checkbox'] {
-    padding: 1rem;
-    font-size: 5rem;
-    border-radius: 5px;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 1.9rem;
+    align-items: baseline;
 }
