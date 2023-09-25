@@ -90,11 +90,19 @@ h3 {
     font-size: 2.1rem;
 }
 
-.checkboxField input[type="checkbox"]+label .checkbox-content {
+.checkboxField.toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 5px;
+}
+
+.centered-label {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* Add this line */
+    grid-column: 1 / span 3;
+
 }
 
 .checkboxField input[type="checkbox"]+label .circle {
@@ -219,6 +227,7 @@ a:active {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-right: 15px;
 }
 
 
@@ -293,7 +302,14 @@ a:active {
     margin-top: 15px;
     gap: 20px;
     justify-items: center;
+    color: #ffffff;
+}
 
+
+.city {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    align-self: center;
 }
 
 .locationData {
@@ -302,4 +318,9 @@ a:active {
     gap: 5px;
     font-size: 1.9rem;
     align-items: baseline;
+}
+
+
+.formstyle label .list {
+    font-size: 2.5rem !important;
 }

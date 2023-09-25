@@ -12,8 +12,7 @@
             {% for data in filtered_data %}
             <label class="list">
 
-                <input type="checkbox" id="fav-toggle" class="list-toggle" data-city="{{ data[0] }}"
-                    data-country="{{ data[1] }}">
+                <input type="checkbox" class="list-toggle" data-city="{{ data[0] }}" data-country="{{ data[1] }}">
                 {{ data[0] }}
 
             </label>

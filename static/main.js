@@ -105,6 +105,7 @@ async function processForm(evt) {
             console.log(error);
         }
     }
+
 }
 
 async function processSelectedData(selectedData) {
@@ -129,7 +130,7 @@ async function processSelectedData(selectedData) {
         } else {
             throw new Error('Response is not valid JSON');
         }
-
+        $('.list-toggle:checked').prop('checked', false);
     } catch (error) {
         console.log(error);
     }
