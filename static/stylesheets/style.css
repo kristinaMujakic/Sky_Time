@@ -178,13 +178,6 @@ h3 {
     color: #ffff80 !important;
 }
 
-.goodbye {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin: 0 300px;
-    font-size: 6rem;
-}
 
 a {
     display: inline-block;

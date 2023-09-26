@@ -1,18 +1,11 @@
-/* Tablet (min-width: 768px) */
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    body {
-        font-size: 3.5rem;
+/*1040px and below*/
+@media (max-width: 65em) {
+    .container {
+        margin: 0 50px;
     }
 
     .usergrid {
-        grid-template-columns: 1fr;
-    }
-
-    .formstyle label,
-    .formstyle p {
-        margin-right: 0;
-        margin-bottom: 10px;
-        text-align: center;
+        grid-template-columns: 1fr 1fr;
     }
 
     .getBtn {
@@ -20,120 +13,63 @@
     }
 
     .favBtn {
-        align-self: center;
-        margin-top: 20px;
+        margin-top: 35px;
     }
 }
 
-/* Phone (max-width: 767px) */
-@media screen and (max-width: 767px) {
-    body {
-        font-size: 2.8rem;
-    }
-
-    .usergrid {
-        grid-template-columns: 1fr;
-    }
-
-
-    .formstyle label,
-    .formstyle p {
-        margin-right: 0;
-        margin-bottom: 8px;
-        text-align: center;
-    }
-
-
-    .formstyle input[type='text'] {
-        padding: 0.3rem;
-        font-size: 2rem;
-        border-radius: 5px;
-    }
-
-
-    .searchField,
-    .checkboxField {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-
-    .checkboxField label {
-        display: inline-block;
-        margin-bottom: 5px;
-    }
-
-    .checkboxField img {
-        margin-left: 0;
-    }
-
-    .checkboxField input {
-        margin-left: 0;
-    }
-
-
-    .getBtn,
-    .favBtn {
-        margin-top: 10px;
-        grid-column: 1 / span 2;
-        text-align: center;
-    }
-
-    .getBtn button,
-    .favBtn a {
-        width: 100%;
-    }
-
-
-    .returnbtn {
-        bottom: 5px;
-    }
-}
-
-/* Small phones (max-width: 480px) */
-@media screen and (max-width: 480px) {
-
-
+/*787 and below */
+@media (max-width: 50em) {
     body {
         font-size: 2.5rem;
     }
 
+    .goodbye {
+        font-size: 3rem;
+        line-height: 1.5;
+    }
+}
 
-    .formstyle label,
-    .formstyle p {
-        margin-right: 0;
-        margin-bottom: 6px;
-        text-align: center;
+/*670 and below*/
+@media (max-width: 42em) {
+    body {
+        font-size: 2.2rem;
     }
 
-
-    .formstyle input[type='text'] {
-        padding: 0.3rem;
-        font-size: 1.8rem;
-        border-radius: 5px;
+    a {
+        font-size: 1.9rem;
     }
 
-
-    .searchField {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
+    .favouritesContainer {
+        width: 500px;
     }
 
-    .getBtn,
-    .favBtn {
-        margin-top: 10px;
-        grid-column: 1 / span 2;
-        text-align: center;
+    .favouritesContainer p {
+        margin-bottom: 20px;
+    }
+}
+
+/*600 and below*/
+@media (max-width: 38em) {
+    body {
+        font-size: 2rem;
     }
 
-    .getBtn button,
-    .favBtn a {
-        width: 100%;
+    a {
+        font-size: 1.6rem;
     }
 
     .returnbtn {
-        bottom: 5px;
+        bottom: 1px;
+    }
+}
+
+/*560px and below*/
+@media (max-width: 35em) {
+    body {
+        font-size: 1.5rem;
+    }
+
+    a {
+        font-size: 1.4rem;
     }
 }
