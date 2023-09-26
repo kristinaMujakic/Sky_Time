@@ -26,7 +26,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 # toolbar = DebugToolbarExtension(app)
 
 # Read the API key from the file
-with open('api_key.txt', 'r') as file:
+with open("api_key.txt", "r") as file:
     API_KEY = file.read().strip()
 
 with app.app_context():
