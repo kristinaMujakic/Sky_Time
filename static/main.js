@@ -48,8 +48,6 @@ $(function () {
                 country: country
             });
         });
-
-        // Call the function to process selected data
         await processSelectedData(selectedData);
     });
 });

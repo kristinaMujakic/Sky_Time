@@ -141,8 +141,6 @@ def user_page():
 
         astronomical_data = response.json()
 
-        # location = astronomical_data['location']
-        # date = astronomical_data['date']
         sunrise = astronomical_data['sunrise']
         sunset = astronomical_data['sunset']
         day_length = astronomical_data['day_length']
@@ -157,8 +155,6 @@ def user_page():
             db.session.commit()
 
         resp = {
-            # "location": location,
-            # "date": date,
             "sunrise": sunrise,
             "sunset": sunset,
             "day_length": day_length,
