@@ -13,6 +13,7 @@ ASTRONOMY_API_URL = 'https://api.ipgeolocation.io/astronomy'
 
 app = Flask(__name__)
 
+
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///sky_time'))
 
@@ -26,8 +27,8 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 # toolbar = DebugToolbarExtension(app)
 
 # Read the API key from the file
-with open("api_key.txt", "r") as file:
-    API_KEY = file.read().strip()
+
+API_KEY = os.environ.get('API_KEY')
 
 with app.app_context():
     connect_db(app)
