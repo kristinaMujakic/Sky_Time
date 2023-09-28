@@ -1,11 +1,25 @@
 /*1040px and below*/
-@media (max-width: 65em) {
+@media (max-width: 64em) {
+    body {
+        font-size: 2.7rem;
+    }
+
+    a {
+        padding: 0;
+    }
+
     .container {
-        margin: 0 50px;
+        margin: 50px 100px;
+    }
+
+    .returnbtn {
+        position: relative;
+        margin: 0 5px;
     }
 
     .usergrid {
         grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
 
     .getBtn {
@@ -20,19 +34,16 @@
 /*787 and below */
 @media (max-width: 50em) {
     body {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+
+    .container {
+        margin: 50px 50px;
     }
 
     .goodbye {
         font-size: 3rem;
         line-height: 1.5;
-    }
-}
-
-/*670 and below*/
-@media (max-width: 42em) {
-    body {
-        font-size: 2.2rem;
     }
 
     a {
@@ -49,7 +60,7 @@
 }
 
 /*600 and below*/
-@media (max-width: 38em) {
+@media (max-width: 42em) {
     body {
         font-size: 2rem;
     }
@@ -58,18 +69,45 @@
         font-size: 1.6rem;
     }
 
-    .returnbtn {
-        bottom: 1px;
+    .container {
+        margin: 50px 25px;
     }
+
 }
 
-/*560px and below*/
-@media (max-width: 35em) {
-    body {
-        font-size: 1.5rem;
+/*450px and below*/
+@media (max-width: 28em) {
+    .container {
+        margin: 25px;
     }
 
-    a {
-        font-size: 1.4rem;
+    .user {
+        height: auto;
+    }
+
+    .usergrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        height: auto;
+        grid-template-rows: 100px;
+        gap: 15px;
+    }
+
+    .formgrid {
+        gap: 15px;
+    }
+
+    .resultsField {
+        height: 200px;
+        font-size: 2rem;
+    }
+
+    .favBtn {
+        margin: 0 0 20px 0;
+    }
+
+    .returnbtn {
+        position: relative;
+        margin-top: 5px;
     }
 }

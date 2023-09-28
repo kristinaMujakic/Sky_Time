@@ -1,7 +1,6 @@
 from flask import Flask, g, session, render_template, redirect, flash, jsonify, request
 import os
 import requests
-
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, SearchData
 from forms import SignUpForm, LogInForm
@@ -24,9 +23,13 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 
+with open("api_key.txt", "r") as file:
+    API_KEY = file.read().strip()
+
+# API_KEY = os.environ.get('API_KEY')
+
 # toolbar = DebugToolbarExtension(app)
 
-API_KEY = os.environ.get('API_KEY')
 
 with app.app_context():
     connect_db(app)

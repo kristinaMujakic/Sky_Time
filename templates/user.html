@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container user">
     <h2>Hi {{ g.user.username }}, the sky explorer!</h2>
 
     <div class="usergrid">
@@ -85,7 +85,6 @@
 
     </div>
 
-    <p class="returnbtn"><a href="/logout">Log Out</a></p>
-
 </div>
+<p class="returnbtn"><a href="/logout">Log Out</a></p>
 {% endblock %}

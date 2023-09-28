@@ -20,7 +20,7 @@ body {
             rgba(34, 34, 34, 0.2)),
         url(../images/cover.jpg);
     background-size: cover;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 h1,
@@ -174,7 +174,7 @@ h3 {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 20px;
+    bottom: 25px;
     color: #ffff80 !important;
 }
 
