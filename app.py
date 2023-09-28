@@ -23,8 +23,8 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 
-with open("api_key.txt", "r") as file:
-    API_KEY = file.read().strip()
+# with open("api_key.txt", "r") as file:
+#     API_KEY = file.read().strip()
 
 API_KEY = os.environ.get('API_KEY')
 
