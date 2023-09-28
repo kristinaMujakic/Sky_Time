@@ -28,7 +28,11 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 
 API_KEY = os.environ.get('API_KEY')
 
-# toolbar = DebugToolbarExtension(app)
+with app.app_context():
+    connect_db(app)
+    db.create_all()
+
+toolbar = DebugToolbarExtension(app)
 
 
 @app.before_request
