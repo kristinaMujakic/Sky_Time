@@ -32,7 +32,7 @@ with app.app_context():
     connect_db(app)
     db.create_all()
 
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 
 
 @app.before_request

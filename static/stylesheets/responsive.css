@@ -77,8 +77,14 @@
 
 /*450px and below*/
 @media (max-width: 28em) {
+
     .container {
         margin: 25px;
+    }
+
+    .fav {
+        height: auto;
+        padding-right: 20px;
     }
 
     .user {
@@ -109,5 +115,20 @@
     .returnbtn {
         position: relative;
         margin-top: 5px;
+    }
+
+    .favouritesContainer {
+        width: calc(100% - 50px);
+
+    }
+
+    .favouritesResults {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        max-width: 380px;
+        overflow: auto;
+        padding: 10px;
+
     }
 }
