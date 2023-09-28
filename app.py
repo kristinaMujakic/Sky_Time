@@ -26,14 +26,9 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "333")
 with open("api_key.txt", "r") as file:
     API_KEY = file.read().strip()
 
-# API_KEY = os.environ.get('API_KEY')
+API_KEY = os.environ.get('API_KEY')
 
 # toolbar = DebugToolbarExtension(app)
-
-
-with app.app_context():
-    connect_db(app)
-    db.create_all()
 
 
 @app.before_request
